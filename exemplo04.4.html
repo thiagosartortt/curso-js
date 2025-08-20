@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sistema Ninja — Naruto Theme</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --naruto-orange:#FF7A00;
+      --naruto-deep:#0F172A;
+    }
+    .naruto-bg {
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,122,0,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(59,130,246,.18), transparent 60%),
+                  linear-gradient(180deg, #0B1220, #0B1220);
+    }
+    .chakra-glow { box-shadow: 0 0 18px rgba(255,122,0,.35); }
+    .leaf-divider { background: linear-gradient(90deg, transparent, rgba(255,122,0,.7), transparent); height: 1px; }
+    .btn-naruto { background: linear-gradient(135deg, var(--naruto-orange), #ffae42); color:#0b0b0b; }
+    .btn-naruto:hover { filter: brightness(1.05); }
+    .tag { border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:.15rem .6rem; font-size:.75rem; background: rgba(255,255,255,.04); }
+    .table-wrap { max-height: 320px; overflow:auto; }
+  </style>
+</head>
+<body class="naruto-bg min-h-screen text-slate-200">
+  <header class="max-w-6xl mx-auto px-4 py-6">
+    <h1 class="text-2xl md:text-3xl font-bold flex items-center gap-3">
+      <span class="inline-block w-2 h-6 rounded bg-[var(--naruto-orange)]"></span>
+      Sistema Ninja — Naruto Theme
+    </h1>
+    <p class="text-slate-400 mt-1">Cadastre ninjas, acompanhe a tabela, gere relatório e exporte para CSV.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 pb-16 grid md:grid-cols-2 gap-6">
+    <!-- FORM -->
+    <section class="bg-slate-900/60 rounded-2xl p-5 md:p-6 border border-white/10 chakra-glow">
+      <h2 class="text-xl font-semibold mb-3">Cadastro do Ninja</h2>
+      <div class="leaf-divider mb-5"></div>
+
+      <form id="formNinja" class="space-y-4">
+        <!-- Nome -->
+        <div>
+          <label class="block text-sm mb-1" for="nome">Nome (3–40)</label>
+          <input id="nome" type="text" minlength="3" maxlength="40" required
+                 class="w-full rounded-lg bg-slate-800/70 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--naruto-orange)]">
+        </div>
+
+        <!-- Nível & Missões -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-1" for="nivel">Nível</label>
+            <select id="nivel" required
+                    class="w-full rounded-lg bg-slate-800/70 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--naruto-orange)]">
+              <option value="">Selecione…</option>
+              <option>Genin</option>
+              <option>Chunin</option>
+              <option>Jonin I</option>
+              <option>Jonin II</option>
+              <option>ANBU</option>
+              <option>Kage</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm mb-1" for="missoes">Missões (5–200)</label>
+            <input id="missoes" type="number" min="5" max="200" required
+                   class="w-full rounded-lg bg-slate-800/70 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--naruto-orange)]">
+          </div>
+        </div>
+
+        <!-- Vila -->
+        <div>
+          <label class="block text-sm mb-1" for="vila">Vila</label>
+          <select id="vila" required
+                  class="w-full rounded-lg bg-slate-800/70 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--naruto-orange)]">
+            <option value="">Selecione…</option>
+            <option>Vila da Folha</option>
+            <option>Vila da Areia</option>
+            <option>Vila da Névoa</option>
+            <option>Vila da Nuvem</option>
+            <option>Vila da Pedra</option>
+            <option>Vila da Chuva</option>
+            <option>Vila da Grama</option>
+            <option>Vila da Cachoeira</option>
+            <option>Vila do Som</option>
+          </select>
+        </div>
+
+        <!-- Elementos -->
+        <fieldset class="border border-white/10 rounded-xl p-3">
+          <legend class="px-2 text-sm text-slate-300">Elementos</legend>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+            <label class="flex items-center gap-2">
+              <input type="checkbox" value="Fogo" class="accent-[var(--naruto-orange)]"><span>Fogo</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" value="Vento" class="accent-[var(--naruto-orange)]"><span>Vento</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" value="Relâmpago" class="accent-[var(--naruto-orange)]"><span>Relâmpago</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" value="Terra" class="accent-[var(--naruto-orange)]"><span>Terra</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="checkbox" value="Água" class="accent-[var(--naruto-orange)]"><span>Água</span>
+            </label>
+          </div>
+          <p class="text-xs text-slate-400 mt-2">Selecione um ou mais elementos.</p>
+        </fieldset>
+
+        <!-- Ações -->
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button type="submit" class="btn-naruto px-4 py-2 rounded-xl font-semibold">Adicionar ninja</button>
+          <button type="button" id="btnLimpar" class="px-4 py-2 rounded-xl bg-slate-800/70 border border-white/10 hover:bg-slate-800">Limpar</button>
+          <button type="button" id="btnRelatorio" class="px-4 py-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 font-semibold">Atualizar relatório</button>
+
+          <!-- NOVO: Exportar CSV -->
+          <button type="button" id="btnCSV" class="px-4 py-2 rounded-xl bg-emerald-600/90 hover:bg-emerald-600 font-semibold">
+            Exportar CSV
+          </button>
+
+          <span id="msg" class="text-sm text-emerald-400 hidden">Ninja adicionado!</span>
+        </div>
+      </form>
+    </section>
+
+    <!-- TABELA + RELATÓRIO -->
+    <section class="space-y-6">
+      <div class="bg-slate-900/60 rounded-2xl p-5 md:p-6 border border-white/10">
+        <h2 class="text-xl font-semibold">Ninjas Cadastrados</h2>
+        <div class="leaf-divider my-4"></div>
+        <div class="table-wrap">
+          <table class="w-full text-sm">
+            <thead class="sticky top-0 bg-slate-900/90 backdrop-blur">
+              <tr class="text-left text-slate-300">
+                <th class="py-2 pr-2">Ninja</th>
+                <th class="py-2 pr-2">Nível</th>
+                <th class="py-2 pr-2">Missões</th>
+                <th class="py-2 pr-2">Vila</th>
+                <th class="py-2 pr-2">Elementos</th>
+                <th class="py-2 pr-2">Salário</th>
+              </tr>
+            </thead>
+            <tbody id="tbody" class="divide-y divide-white/10"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/60 rounded-2xl p-5 md:p-6 border border-white/10">
+        <h2 class="text-xl font-semibold">Relatório</h2>
+        <div class="leaf-divider my-4"></div>
+        <div id="relatorio" class="grid md:grid-cols-2 gap-3 text-sm"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 pb-10 text-xs text-slate-500">
+    <p class="tag inline-block">Tema Naruto • Tailwind</p>
+  </footer>
+
+  <script>
+    // ------------------ ESTADO ------------------
+    let quantidadeFogo = 0, quantidadeVento = 0, quantidadeRelampago = 0, quantidadeTerra = 0, quantidadeAgua = 0;
+    let somaMissoes = 0;
+    let menorQuantidadeMissoes = 999999999;
+    let quantidadeNinjas = 0;
+    const ninjas = []; // <-- NOVO: fonte de verdade para exportação
+
+    // ------------------ UTIL ------------------
+    function obterSalario(nivel) {
+      if (nivel === "Genin") return 1200;
+      if (nivel === "Chunin") return 2500;
+      if (nivel === "Jonin I") return 5000;
+      if (nivel === "Jonin II") return 7000;
+      if (nivel === "ANBU") return 9000;
+      if (nivel === "Kage") return 15000;
+      return 0;
+    }
+    function calcularSomaMissoes(missoes) { somaMissoes += missoes; }
+    function descobrirMenorMissao(missoes) { if (missoes < menorQuantidadeMissoes) menorQuantidadeMissoes = missoes; }
+    function calcularQuantidadePorElemento(elementosArray) {
+      if (elementosArray.includes("Fogo"))       quantidadeFogo++;
+      if (elementosArray.includes("Vento"))      quantidadeVento++;
+      if (elementosArray.includes("Relâmpago"))  quantidadeRelampago++;
+      if (elementosArray.includes("Terra"))      quantidadeTerra++;
+      if (elementosArray.includes("Água"))       quantidadeAgua++;
+    }
+
+    // ------------------ DOM HOOKS ------------------
+    const form = document.getElementById('formNinja');
+    const tbody = document.getElementById('tbody');
+    const relatorio = document.getElementById('relatorio');
+    const btnLimpar = document.getElementById('btnLimpar');
+    const btnRelatorio = document.getElementById('btnRelatorio');
+    const btnCSV = document.getElementById('btnCSV');
+    const msg = document.getElementById('msg');
+
+    // ------------------ RENDER ------------------
+    function adicionarLinhaTabela({nome, nivel, missoes, vila, elementos, salario}) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="py-2 pr-2">${nome}</td>
+        <td class="py-2 pr-2">${nivel}</td>
+        <td class="py-2 pr-2">${missoes}</td>
+        <td class="py-2 pr-2">${vila}</td>
+        <td class="py-2 pr-2">${elementos.map(e => `<span class="tag mr-1">${e}</span>`).join(' ')}</td>
+        <td class="py-2 pr-2">R$ ${obterSalario(nivel).toLocaleString('pt-BR')}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function atualizarRelatorio() {
+      const media = quantidadeNinjas > 0 ? (somaMissoes / quantidadeNinjas) : 0;
+      relatorio.innerHTML = `
+        <div class="p-3 rounded-lg bg-slate-800/60 border border-white/10">
+          <div class="text-slate-400 text-xs">Quantidade de ninjas</div>
+          <div class="text-lg font-semibold">${quantidadeNinjas}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800/60 border border-white/10">
+          <div class="text-slate-400 text-xs">Menor quantidade de missões</div>
+          <div class="text-lg font-semibold">${quantidadeNinjas ? menorQuantidadeMissoes : '-'}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800/60 border border-white/10">
+          <div class="text-slate-400 text-xs">Média de missões</div>
+          <div class="text-lg font-semibold">${media.toFixed(2)}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-slate-800/60 border border-white/10">
+          <div class="text-slate-400 text-xs">Contagem por elemento</div>
+          <div class="mt-1 space-y-1">
+            <div><span class="tag">Fogo</span> ${quantidadeFogo}</div>
+            <div><span class="tag">Vento</span> ${quantidadeVento}</div>
+            <div><span class="tag">Relâmpago</span> ${quantidadeRelampago}</div>
+            <div><span class="tag">Terra</span> ${quantidadeTerra}</div>
+            <div><span class="tag">Água</span> ${quantidadeAgua}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ------------------ CSV ------------------
+    function escapeCSV(value) {
+      // transforma em string, troca aspas por aspas duplas e envolve em aspas
+      const s = String(value).replace(/"/g, '""');
+      return `"${s}"`;
+    }
+
+    function gerarCSV(dados, delimiter = ';') {
+      const header = ['Nome','Nível','Missões','Vila','Elementos','Salário'];
+      const linhas = [header.map(escapeCSV).join(delimiter)];
+
+      for (const n of dados) {
+        const elementosStr = (n.elementos || []).join(' | ');
+        const row = [
+          escapeCSV(n.nome),
+          escapeCSV(n.nivel),
+          escapeCSV(n.missoes),
+          escapeCSV(n.vila),
+          escapeCSV(elementosStr),
+          escapeCSV(n.salario) // já é número; exporto “cru”
+        ];
+        linhas.push(row.join(delimiter));
+      }
+
+      // BOM para abrir bonito no Excel
+      return '\uFEFF' + linhas.join('\n');
+    }
+
+    function baixarCSV(nomeArquivo = 'ninjas.csv', delimiter = ';') {
+      if (ninjas.length === 0) {
+        feedback('Não há dados para exportar.', true);
+        return;
+      }
+      const conteudo = gerarCSV(ninjas, delimiter);
+      const blob = new Blob([conteudo], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = nomeArquivo;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      feedback('CSV gerado com sucesso!');
+    }
+
+    // ------------------ FORM SUBMIT ------------------
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const nivel = document.getElementById('nivel').value;
+      const missoes = parseInt(document.getElementById('missoes').value, 10);
+      const vila = document.getElementById('vila').value;
+      const elementos = Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
+
+      if (nome.length < 3 || nome.length > 40) return feedback("Nome deve ter entre 3 e 40 caracteres.", true);
+      if (!nivel) return feedback("Selecione um nível.", true);
+      if (isNaN(missoes) || missoes < 5 || missoes > 200) return feedback("Missões deve estar entre 5 e 200.", true);
+      if (!vila) return feedback("Selecione uma vila.", true);
+      if (elementos.length === 0) return feedback("Selecione ao menos um elemento.", true);
+
+      const salario = obterSalario(nivel);
+
+      // Atualiza contadores
+      calcularQuantidadePorElemento(elementos);
+      calcularSomaMissoes(missoes);
+      descobrirMenorMissao(missoes);
+      quantidadeNinjas++;
+
+      // Registra no array (para exportar depois)
+      ninjas.push({ nome, nivel, missoes, vila, elementos, salario });
+
+      // Tabela & relatório
+      adicionarLinhaTabela({nome, nivel, missoes, vila, elementos, salario});
+      atualizarRelatorio();
+
+      form.reset();
+      feedback("Ninja adicionado!");
+    });
+
+    function feedback(texto, erro=false){
+      msg.textContent = texto;
+      msg.classList.remove('hidden');
+      msg.classList.toggle('text-emerald-400', !erro);
+      msg.classList.toggle('text-red-400', erro);
+      setTimeout(()=> msg.classList.add('hidden'), 2200);
+    }
+
+    // Botões extras
+    btnLimpar.addEventListener('click', ()=>{
+      form.reset();
+      feedback("Formulário limpo.");
+    });
+    btnRelatorio.addEventListener('click', atualizarRelatorio);
+    btnCSV.addEventListener('click', () => baixarCSV('ninjas.csv', ';')); // troque ';' por ',' se preferir
+
+    // Primeira render
+    atualizarRelatorio();
+  </script>
+</body>
+</html>
